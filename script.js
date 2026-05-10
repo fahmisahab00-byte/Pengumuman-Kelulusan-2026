@@ -3,7 +3,7 @@
    ============================================================ */
 const CONFIG = {
   // Ganti dengan URL Web App dari Google Apps Script Anda
-  APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbweDAdlFDjwn58iT24oxEXEYwMVeV3wHS2S_8KQMzGeZAURfBUh1kgPKxe8bTa4fRd6RQ/exec",
+  APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzJEWmBsRTXTnSGmj3mrHqaD-o-Y9EAtqEo3M2T5waqOyrEQZHDjFMeRNIXvNxpUqM58A/exec",
 
   // Kredensial login (bisa diganti sesuai kebutuhan)
   ADMIN_USERNAME: "admin",
