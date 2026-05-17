@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pengumuman Kelulusan – SMP Negeri 9 Batang 2025/2026</title>
+  <link rel="stylesheet" href="style.css"/>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- ========== HALAMAN UTAMA ========== -->
+<div id="page-home" class="page active">
+  <div class="home-bg">
+    <div class="home-overlay"></div>
+    <div class="floating-shapes">
+      <span class="shape s1"></span><span class="shape s2"></span>
+      <span class="shape s3"></span><span class="shape s4"></span>
+    </div>
+    <div class="home-content">
+      <div class="school-logo-wrap animate-in">
+        <img src="https://i.imgur.com/SoMVyZx.png" alt="Logo SMP Negeri 9 Batang" class="school-logo" onerror="this.src='https://via.placeholder.com/120x120/1a4f91/ffffff?text=LOGO'"/>
+      </div>
+      <div class="home-title-block animate-in delay-1">
+        <p class="home-subtitle">DINAS PENDIDIKAN DAN KEBUDAYAAN KABUPATEN BATANG</p>
+        <h1 class="home-title">SMP Negeri 9 Batang</h1>
+        <div class="title-divider"></div>
+        <h2 class="home-announce">Pengumuman Kelulusan</h2>
+        <p class="home-year">Tahun Ajaran 2025/2026</p>
+      </div>
+      <div class="home-buttons animate-in delay-2">
+        <button class="btn-home btn-siswa" onclick="showPage('page-login-siswa')">
+          <i class="bi bi-person-fill"></i>
+          <span>Login Siswa</span>
+        </button>
+        <button class="btn-home btn-admin" onclick="showPage('page-login-admin')">
+          <i class="bi bi-shield-lock-fill"></i>
+          <span>Login Admin</span>
+        </button>
+      </div>
+      <p class="developer-credit animate-in delay-3">
+        <i class="bi bi-code-slash"></i> Developer: <strong>Achmad Yulianto, S.Pd</strong>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== LOGIN SISWA ========== -->
+<div id="page-login-siswa" class="page">
+  <div class="login-wrap">
+    <div class="login-card">
+      <button class="btn-back" onclick="showPage('page-home')"><i class="bi bi-arrow-left"></i> Kembali</button>
+      <div class="login-header">
+        <div class="login-icon"><i class="bi bi-person-circle"></i></div>
+        <h2>Login Siswa</h2>
+        <p>Masukkan NISN dan password untuk melihat hasil kelulusan</p>
+      </div>
+      <div class="form-group-custom">
+        <label><i class="bi bi-card-text"></i> NISN</label>
+        <input type="text" id="siswa-nisn" class="form-control-custom" placeholder="Masukkan NISN Anda" maxlength="10"/>
+      </div>
+      <div class="form-group-custom">
+        <label><i class="bi bi-lock-fill"></i> Password</label>
+        <div class="input-pw-wrap">
+          <input type="password" id="siswa-pw" class="form-control-custom" placeholder="Password default: 123456"/>
+          <button class="toggle-pw" onclick="togglePw('siswa-pw',this)"><i class="bi bi-eye"></i></button>
+        </div>
+      </div>
+      <div id="siswa-alert" class="custom-alert d-none"></div>
+      <button class="btn-submit" onclick="loginSiswa()">
+        <span id="siswa-btn-text">Cek Kelulusan</span>
+        <div id="siswa-spinner" class="btn-spinner d-none"></div>
+      </button>
+      <p class="login-hint"><i class="bi bi-info-circle"></i> Password default: <strong>123456</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== HASIL SISWA ========== -->
+<div id="page-hasil-siswa" class="page">
+  <div class="hasil-wrap">
+    <button class="btn-back-top" onclick="showPage('page-login-siswa')"><i class="bi bi-arrow-left"></i> Kembali</button>
+    <div id="hasil-content"></div>
+  </div>
+</div>
+
+<!-- ========== LOGIN ADMIN ========== -->
+<div id="page-login-admin" class="page">
+  <div class="login-wrap">
+    <div class="login-card">
+      <button class="btn-back" onclick="showPage('page-home')"><i class="bi bi-arrow-left"></i> Kembali</button>
+      <div class="login-header">
+        <div class="login-icon admin-icon"><i class="bi bi-shield-lock-fill"></i></div>
+        <h2>Login Admin</h2>
+        <p>Akses khusus untuk pengelola data kelulusan</p>
+      </div>
+      <div class="form-group-custom">
+        <label><i class="bi bi-person-badge"></i> Username</label>
+        <input type="text" id="admin-user" class="form-control-custom" placeholder="Username admin"/>
+      </div>
+      <div class="form-group-custom">
+        <label><i class="bi bi-lock-fill"></i> Password</label>
+        <div class="input-pw-wrap">
+          <input type="password" id="admin-pw" class="form-control-custom" placeholder="Password admin"/>
+          <button class="toggle-pw" onclick="togglePw('admin-pw',this)"><i class="bi bi-eye"></i></button>
+        </div>
+      </div>
+      <div id="admin-alert" class="custom-alert d-none"></div>
+      <button class="btn-submit admin-submit" onclick="loginAdmin()">
+        <span id="admin-btn-text">Masuk Dashboard</span>
+        <div id="admin-spinner" class="btn-spinner d-none"></div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== DASHBOARD ADMIN ========== -->
+<div id="page-dashboard" class="page">
+  <!-- Sidebar -->
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand">
+        <img src="https://i.imgur.com/SoMVyZx.png" alt="Logo" class="sidebar-logo" onerror="this.src='https://via.placeholder.com/40/ffffff/1a4f91?text=L'"/>
+        <div>
+          <p class="sidebar-school">SMPN 9 Batang</p>
+          <p class="sidebar-role">Administrator</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a class="sidebar-link active" onclick="showSection('sec-data', this)"><i class="bi bi-table"></i> Data Siswa</a>
+        <a class="sidebar-link" onclick="showSection('sec-import', this)"><i class="bi bi-file-earmark-arrow-up"></i> Import Excel</a>
+        <a class="sidebar-link" onclick="showSection('sec-skl', this)"><i class="bi bi-file-earmark-pdf"></i> Template SKL</a>
+        <a class="sidebar-link" onclick="showSection('sec-stats', this)"><i class="bi bi-bar-chart-fill"></i> Statistik</a>
+      </nav>
+      <button class="sidebar-logout" onclick="showPage('page-home')"><i class="bi bi-box-arrow-left"></i> Logout</button>
+    </aside>
+
+    <main class="admin-main">
+      <!-- SECTION: DATA SISWA -->
+      <section id="sec-data" class="admin-section active">
+        <div class="admin-header">
+          <div>
+            <h3 class="admin-title">Data Siswa Kelulusan</h3>
+            <p class="admin-sub">Tahun Ajaran 2025/2026</p>
+          </div>
+          <button class="btn-refresh" onclick="loadAllData()"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+        </div>
+        <div class="search-bar-wrap">
+          <i class="bi bi-search search-icon-bar"></i>
+          <input type="text" id="search-input" class="search-bar" placeholder="Cari nama atau NISN..." oninput="filterTable()"/>
+        </div>
+        <div id="data-loading" class="loading-state d-none">
+          <div class="spinner-ring"></div>
+          <p>Mengambil data dari spreadsheet...</p>
+        </div>
+        <div id="data-alert" class="custom-alert d-none"></div>
+        <div class="table-wrap">
+          <table class="admin-table" id="tbl-siswa">
+            <thead>
+              <tr>
+                <th>No</th><th>Nama</th><th>NIS</th><th>NISN</th>
+                <th>Tempat, Tgl Lahir</th><th>Nilai Rata</th><th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="tbl-body"></tbody>
+          </table>
+          <div id="table-empty" class="table-empty d-none">
+            <i class="bi bi-inbox"></i><p>Belum ada data. Klik Refresh atau import data terlebih dahulu.</p>
+          </div>
+        </div>
+        <div id="tbl-summary" class="tbl-summary d-none"></div>
+      </section>
+
+      <!-- SECTION: IMPORT EXCEL -->
+      <section id="sec-import" class="admin-section">
+        <div class="admin-header">
+          <div>
+            <h3 class="admin-title">Import Data dari Excel</h3>
+            <p class="admin-sub">Upload file .xlsx untuk mengirim data ke Google Spreadsheet</p>
+          </div>
+        </div>
+        <div class="import-card">
+          <div class="import-icon"><i class="bi bi-file-earmark-excel"></i></div>
+          <h5>Upload File Excel (.xlsx)</h5>
+          <p class="import-desc">Format kolom: <strong>Nama | NISN | Tempat_Lahir | Tanggal_Lahir | Nilai_Rata | Status</strong></p>
+          <label class="btn-upload-label" for="excel-file">
+            <i class="bi bi-cloud-arrow-up"></i> Pilih File Excel
+          </label>
+          <input type="file" id="excel-file" accept=".xlsx,.xls" onchange="previewExcel(this)" style="display:none"/>
+          <p id="file-name-label" class="file-name-label">Belum ada file dipilih</p>
+          <div id="preview-table-wrap" class="d-none">
+            <h6>Preview Data (10 baris pertama):</h6>
+            <div class="table-wrap"><table class="admin-table" id="preview-table"></table></div>
+            <div class="import-actions">
+              <span id="preview-count" class="badge-count"></span>
+              <button class="btn-import" onclick="importToSheets()">
+                <i class="bi bi-cloud-upload"></i> Kirim ke Google Spreadsheet
+              </button>
+            </div>
+          </div>
+          <div id="import-alert" class="custom-alert d-none mt-3"></div>
+          <div id="import-loading" class="loading-state d-none">
+            <div class="spinner-ring"></div><p>Mengirim data ke Spreadsheet...</p>
+          </div>
+        </div>
+        <div class="import-template">
+          <h6><i class="bi bi-download"></i> Download Template Excel</h6>
+          <p>Gunakan template ini agar format data sesuai dengan sistem.</p>
+          <button class="btn-template" onclick="downloadTemplate()"><i class="bi bi-file-earmark-spreadsheet"></i> Download Template</button>
+        </div>
+      </section>
+
+      <!-- SECTION: TEMPLATE SKL -->
+      <section id="sec-skl" class="admin-section">
+        <div class="admin-header">
+          <div>
+            <h3 class="admin-title">Template SKL Custom</h3>
+            <p class="admin-sub">Upload, review, dan kelola template Surat Keterangan Lulus</p>
+          </div>
+        </div>
+
+        <!-- STATUS TEMPLATE AKTIF -->
+        <div id="skl-status-card" class="skl-status-card">
+          <div class="skl-status-icon" id="skl-status-icon"><i class="bi bi-file-earmark-word"></i></div>
+          <div class="skl-status-info">
+            <p class="skl-status-label">Template Aktif</p>
+            <p class="skl-status-name" id="skl-status-name">Belum ada template — menggunakan template default</p>
+            <p class="skl-status-size" id="skl-status-size"></p>
+          </div>
+          <div class="skl-status-actions" id="skl-status-actions"></div>
+        </div>
+
+        <!-- UPLOAD TEMPLATE -->
+        <div class="skl-upload-card">
+          <div class="skl-upload-icon"><i class="bi bi-cloud-arrow-up-fill"></i></div>
+          <h5>Upload Template SKL (Word .docx)</h5>
+          <p class="skl-upload-desc">
+            Upload file Word (.docx) berisi template SKL Anda. Gunakan placeholder berikut di dalam dokumen agar data siswa terisi otomatis:
+          </p>
+          <div class="placeholder-grid">
+            <div class="placeholder-item"><code>{{NAMA}}</code><span>Nama lengkap siswa</span></div>
+            <div class="placeholder-item"><code>{{TTL}}</code><span>Tempat, Tanggal Lahir</span></div>
+            <div class="placeholder-item"><code>{{NIS}}</code><span>Nomor Induk Siswa</span></div>
+            <div class="placeholder-item"><code>{{NISN}}</code><span>Nomor Induk Siswa Nasional</span></div>
+            <div class="placeholder-item"><code>{{NILAI}}</code><span>Nilai Rata-rata</span></div>
+            <div class="placeholder-item"><code>{{STATUS}}</code><span>Status Kelulusan (LULUS/TIDAK LULUS)</span></div>
+          </div>
+          <div class="skl-upload-actions">
+            <label class="btn-upload-label" for="skl-pdf-file">
+              <i class="bi bi-file-earmark-arrow-up"></i> Pilih File Word Template (.docx)
+            </label>
+            <input type="file" id="skl-pdf-file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onchange="uploadTemplateSKL(this)" style="display:none"/>
+          </div>
+          <p id="skl-file-label" class="file-name-label">Belum ada file dipilih</p>
+          <div id="skl-upload-alert" class="custom-alert d-none mt-3"></div>
+        </div>
+
+        <!-- REVIEW TEMPLATE -->
+        <div id="skl-review-wrap" class="skl-review-wrap d-none">
+          <div class="skl-review-header">
+            <h5><i class="bi bi-eye"></i> Preview Template Word</h5>
+            <div class="skl-review-header-actions">
+              <button class="btn-preview-siswa" onclick="showPreviewModal()">
+                <i class="bi bi-person-fill"></i> Preview dengan Data Siswa
+              </button>
+              <button class="btn-hapus-template" onclick="hapusTemplate()">
+                <i class="bi bi-trash3-fill"></i> Hapus Template
+              </button>
+            </div>
+          </div>
+          <!-- Preview Word via mammoth.js (render HTML) -->
+          <div id="skl-word-preview" class="word-preview-wrap"></div>
+        </div>
+
+        <!-- INFO CARA PAKAI -->
+        <div class="skl-info-card">
+          <h6><i class="bi bi-lightbulb-fill"></i> Cara Membuat Template Word Custom</h6>
+          <ol class="skl-info-list">
+            <li>Buat dokumen SKL di <strong>Microsoft Word</strong> dan simpan sebagai format <strong>.docx</strong></li>
+            <li>Tulis placeholder seperti <code>{{NAMA}}</code>, <code>{{NISN}}</code> di posisi yang diinginkan</li>
+            <li>Upload file <strong>.docx</strong> tersebut di form di atas</li>
+            <li>Sistem akan otomatis mengisi data siswa dan siswa dapat men-download SKL sebagai file <strong>Word (.docx)</strong></li>
+          </ol>
+          <div class="skl-info-note">
+            <i class="bi bi-info-circle-fill"></i>
+            <span>Sistem membaca template Word Anda, mengganti semua placeholder dengan data siswa, lalu menghasilkan file <strong>.docx</strong> siap unduh untuk setiap siswa yang lulus.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: STATISTIK -->
+      <section id="sec-stats" class="admin-section">
+        <div class="admin-header">
+          <div><h3 class="admin-title">Statistik Kelulusan</h3><p class="admin-sub">Ringkasan data kelulusan</p></div>
+        </div>
+        <div class="stats-grid" id="stats-grid">
+          <div class="stat-card blue"><div class="stat-num" id="stat-total">–</div><div class="stat-label">Total Siswa</div></div>
+          <div class="stat-card green"><div class="stat-num" id="stat-lulus">–</div><div class="stat-label">Lulus</div></div>
+          <div class="stat-card red"><div class="stat-num" id="stat-tidak">–</div><div class="stat-label">Tidak Lulus</div></div>
+          <div class="stat-card gold"><div class="stat-num" id="stat-avg">–</div><div class="stat-label">Nilai Rata-rata</div></div>
+        </div>
+        <div class="stat-bar-wrap">
+          <div class="stat-bar-label"><span>Persentase Kelulusan</span><span id="pct-lulus">0%</span></div>
+          <div class="stat-bar-track"><div class="stat-bar-fill" id="stat-bar-fill" style="width:0%"></div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- ========== MODAL PREVIEW DATA SISWA ========== -->
+<div id="modal-preview" class="modal-overlay d-none" onclick="closeModalPreview(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h5><i class="bi bi-eye-fill"></i> Preview SKL dengan Data Siswa</h5>
+      <button class="modal-close" onclick="closeModalPreview()"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-desc">Masukkan data siswa untuk preview hasil SKL dengan template yang diupload:</p>
+      <div class="modal-form-grid">
+        <div class="form-group-custom">
+          <label><i class="bi bi-person-fill"></i> Nama Lengkap</label>
+          <input type="text" id="prev-nama" class="form-control-custom" placeholder="Contoh: Ahmad Fauzi" value="Ahmad Fauzi"/>
+        </div>
+        <div class="form-group-custom">
+          <label><i class="bi bi-geo-alt-fill"></i> Tempat, Tanggal Lahir</label>
+          <input type="text" id="prev-ttl" class="form-control-custom" placeholder="Batang, 12 Mei 2010" value="Batang, 12 Mei 2010"/>
+        </div>
+        <div class="form-group-custom">
+          <label><i class="bi bi-person-badge"></i> NIS</label>
+          <input type="text" id="prev-nis" class="form-control-custom" placeholder="1234" value="1234"/>
+        </div>
+        <div class="form-group-custom">
+          <label><i class="bi bi-credit-card"></i> NISN</label>
+          <input type="text" id="prev-nisn" class="form-control-custom" placeholder="0123456789" value="0123456789"/>
+        </div>
+      </div>
+      <button class="btn-submit" style="margin-top:8px" onclick="previewSKLModal()">
+        <i class="bi bi-eye"></i> Generate Preview SKL
+      </button>
+      <div id="modal-alert" class="custom-alert d-none mt-3"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SCRIPTS ========== -->
+<!-- ========== SCRIPTS ========== -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- SheetJS -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<!-- jsPDF (untuk generate SKL default tanpa template) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- JSZip untuk manipulasi DOCX (ZIP/XML) -->
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<!-- Mammoth.js untuk preview Word di browser -->
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
+<!-- html2pdf.js untuk konversi HTML → PDF (download SKL siswa) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
